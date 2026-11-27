@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamento - Escolha de Serviço</title>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+  --bg-primary: #121214;
+  --bg-card: #202024;
+  --bg-input: #121214;
+  --text-primary: #e1e1e6;
+  --text-secondary: #a8a8b3;
+  --accent-color: #d4a373; /* Cor Âmbar / Dourado Barbearia */
+  --accent-hover: #bc8a5f;
+  --border-color: #323238;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 480px;
+}
+
+/* cabeçalho */
+.barber-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.barber-header h1 {
+  font-size: 1.6rem;
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+.barber-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.logo-barbearia {
+  height: 180px;
+  width: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  vertical-align: middle;
+}
+
+/* indicador de passos */
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.step.active .step-number {
+  background-color: var(--accent-color);
+  color: #121214;
+}
+
+.step-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background-color: var(--border-color);
+  margin: 0 12px;
+}
+
+/* Card do Formulário */
+.card-form {
+  background-color: var(--bg-card);
+  padding: 28px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.card-form h2 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+/* Agrupamento de Inputs */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.input-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+  color: var(--text-secondary);
+}
+
+/* Inputs de Datas e Selects */
+input, select {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 12px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+input:focus, select:focus {
+  border-color: var(--accent-color);
+}
+
+/* Botão Principal (Confirmar) */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--accent-color);
+  color: #121214;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  margin-top: 10px;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+/* Botão Secundário (Voltar) */
+.btn-secondary {
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--border-color);
+  color: var(--text-primary);
+}
+  </style>
+</head>
+<body>
+
+  <main class="container">
+    <!-- Cabeçalho / Saudação personalizada -->
+    <header class="barber-header">
+      <div class="logo-icon"><img src="../img/logo.png" alt="Logo da barbearia" class="logo-barbearia"></div>
+      <h1>Escolha o Serviço</h1>
+      <p id="saudacao-cliente">Carregando seus dados...</p>
+    </header>
+
+    <!-- Indicador de Progresso -->
+    <div class="stepper">
+      <div class="step">
+        <span class="step-number">✓</span>
+        <span class="step-label">Seus Dados</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step active">
+        <span class="step-number">2</span>
+        <span class="step-label">Serviço & Data</span>
+      </div>
+    </div>
+
+    <!-- Formulário Etapa 2 -->
+    <form id="form-servico" class="card-form">
+      <h2>Detalhes do Agendamento</h2>
+      
+      <div class="input-group">
+        <label for="servico">Selecione o Serviço</label>
+        <select id="servico" name="servico" required >
+          <option value="" disabled selected>Selecione uma opção...</option>
+          <option value="Degradê - R$ 25,00 (30 min)">Corte Degradê - R$ 25,00</option>
+          <option value="Social - R$ 25,00 (30 min)">Corte Social - R$ 15,00</option>
+          <option value="Barba - R$ 15,00 (30 min)">Barba - R$ 15,00</option>
+          <option value="Corte + Barba (Combo) - R$ 55,00 (50 min)">Corte + Barba (Combo) - R$ 55,00</option>
+        </select>
+      </div>
+
+      <div class="input-group-row">
+        <div class="input-group">
+          <label for="dataAgendamento">Data do corte</label>
+          <input type="date" id="dataAgendamento" name="dataAgendamento" required>
+        </div>
+
+        <div class="input-group">
+          <label for="horarioAgendamento">Horário</label>
+          <select id="horarioAgendamento" name="horarioAgendamento" required>
+            <option value="" disabled selected>Horário...</option>
+            <option value="08:00">08:00</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">
+        📲 Confirmar
+      </button>
+
+      <button type="button" class="btn-secondary" onclick="window.location.href='/cadastro/index.html'">
+        ⬅️ Voltar e Alterar Dados
+      </button>
+    </form>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="servicos.js"></script>
+</body>
+</html>
